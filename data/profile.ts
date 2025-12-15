@@ -6,7 +6,7 @@ export const profile: Profile = {
   subtitle: 'Passionate about transforming data into actionable insights. Currently pursuing a Master\'s in Business Intelligence & Big Data Analytics with a strong foundation in fullstack development, data visualization, and analytical thinking.',
   location: 'Rabat, Morocco',
   email: 'bouayadyassine110@gmail.com',
-  cvUrl: '/cv.pdf', // Update this path to your actual CV file
+  cvUrl: '/resume.pdf',
   seo: {
     title: 'Yassine BOUAYAD - Data & BI Analytics Engineer',
     description: 'Master\'s student in Business Intelligence & Big Data Analytics with expertise in data analysis, web development, and data visualization. Open to BI/Analytics internships and projects.',
