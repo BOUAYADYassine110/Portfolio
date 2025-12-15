@@ -131,26 +131,120 @@ This creates an optimized production build in the `.next` folder.
 
 ## Deployment
 
-### Deploy to Vercel (Recommended)
+### Pre-Deployment Checklist
 
+- [ ] Update all personal information in `data/` files
+- [ ] Add your CV to `public/cv.pdf`
+- [ ] Test the build locally: `npm run build && npm start`
+- [ ] Commit all changes to Git
+- [ ] Push to GitHub repository
+
+### Deploy to Vercel (Recommended - Free)
+
+**Option 1: Via Vercel Dashboard**
+1. Create a GitHub repository and push your code
+2. Go to [vercel.com](https://vercel.com) and sign in with GitHub
+3. Click "Add New" → "Project"
+4. Import your portfolio repository
+5. Vercel auto-detects Next.js settings (no configuration needed)
+6. Click "Deploy"
+7. Your site will be live at `your-project.vercel.app`
+
+**Option 2: Via Vercel CLI**
+```bash
+npm install -g vercel
+vercel login
+vercel --prod
+```
+
+**Custom Domain (Optional):**
+- Go to Project Settings → Domains
+- Add your custom domain and follow DNS instructions
+
+### Deploy to Netlify (Free)
+
+**Option 1: Via Netlify Dashboard**
 1. Push your code to GitHub
-2. Go to [vercel.com](https://vercel.com)
-3. Import your repository
-4. Vercel will automatically detect Next.js and deploy
+2. Go to [netlify.com](https://netlify.com) and sign in
+3. Click "Add new site" → "Import an existing project"
+4. Connect to GitHub and select your repository
+5. Build settings:
+   - Build command: `npm run build`
+   - Publish directory: `.next`
+6. Click "Deploy site"
 
-### Deploy to Netlify
+**Option 2: Via Netlify CLI**
+```bash
+npm install -g netlify-cli
+netlify login
+npm run build
+netlify deploy --prod
+```
 
-1. Build the project: `npm run build`
-2. Install Netlify CLI: `npm install -g netlify-cli`
-3. Deploy: `netlify deploy --prod`
+### Deploy to GitHub Pages (Free)
 
-### Other Platforms
+1. Install the deployment package:
+```bash
+npm install --save-dev gh-pages
+```
 
-The site can be deployed to any platform that supports Next.js:
-- AWS Amplify
-- Cloudflare Pages
-- Railway
-- Render
+2. Update `next.config.js`:
+```javascript
+module.exports = {
+  output: 'export',
+  basePath: '/your-repo-name',
+  images: { unoptimized: true }
+}
+```
+
+3. Add to `package.json`:
+```json
+"scripts": {
+  "deploy": "next build && next export && gh-pages -d out"
+}
+```
+
+4. Deploy:
+```bash
+npm run deploy
+```
+
+5. Enable GitHub Pages in repository settings (use `gh-pages` branch)
+
+### Deploy to Cloudflare Pages (Free)
+
+1. Push code to GitHub
+2. Go to [pages.cloudflare.com](https://pages.cloudflare.com)
+3. Click "Create a project" → "Connect to Git"
+4. Select your repository
+5. Build settings:
+   - Framework preset: Next.js
+   - Build command: `npm run build`
+   - Build output directory: `.next`
+6. Click "Save and Deploy"
+
+### Deploy to Railway (Free Tier Available)
+
+1. Go to [railway.app](https://railway.app)
+2. Click "Start a New Project" → "Deploy from GitHub repo"
+3. Select your repository
+4. Railway auto-detects Next.js and deploys
+5. Your site will be live with a generated URL
+
+### Troubleshooting Deployment
+
+**Build fails:**
+- Run `npm run build` locally to check for errors
+- Ensure all dependencies are in `package.json`
+- Check Node.js version compatibility (18+)
+
+**Images not loading:**
+- Verify images are in the `public/` folder
+- Check image paths start with `/` (e.g., `/cv.pdf`)
+
+**Environment variables:**
+- Add them in your platform's dashboard (not in code)
+- Redeploy after adding variables
 
 ## Contact Form Integration
 
