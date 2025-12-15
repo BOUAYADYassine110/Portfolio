@@ -8,6 +8,7 @@ import { profile, socials, contact } from '@/data/profile';
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [errors, setErrors] = useState({ name: '', email: '', message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validateForm = () => {
     const newErrors = { name: '', email: '', message: '' };
@@ -35,15 +36,35 @@ export default function Contact() {
     return isValid;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (validateForm()) {
-      // TODO: Connect to email service or API
-      console.log('Form submitted:', formData);
-      alert('Thank you for your message! I will get back to you soon.');
-      setFormData({ name: '', email: '', message: '' });
-      setErrors({ name: '', email: '', message: '' });
+      setIsSubmitting(true);
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            access_key: 'f2afcae0-cc22-48b6-968c-697bab09500a',
+            name: formData.name,
+            email: formData.email,
+            message: formData.message,
+          }),
+        });
+        
+        if (response.ok) {
+          alert('Thank you for your message! I will get back to you soon.');
+          setFormData({ name: '', email: '', message: '' });
+        } else {
+          alert('Something went wrong. Please try again or email me directly.');
+        }
+      } catch (error) {
+        alert('Failed to send message. Please email me directly at ' + profile.email);
+      } finally {
+        setIsSubmitting(false);
+        setErrors({ name: '', email: '', message: '' });
+      }
     }
   };
 
@@ -180,8 +201,8 @@ export default function Contact() {
               {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
             </div>
 
-            <Button variant="primary" className="w-full">
-              Send Message
+            <Button variant="primary" className="w-full" disabled={isSubmitting}>
+              {isSubmitting ? 'Sending...' : 'Send Message'}
             </Button>
           </form>
         </div>

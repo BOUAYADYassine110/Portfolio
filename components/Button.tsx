@@ -6,9 +6,10 @@ interface ButtonProps {
   href?: string;
   variant?: 'primary' | 'secondary' | 'outline';
   className?: string;
+  disabled?: boolean;
 }
 
-const Button = memo(function Button({ children, onClick, href, variant = 'primary', className = '' }: ButtonProps) {
+const Button = memo(function Button({ children, onClick, href, variant = 'primary', className = '', disabled = false }: ButtonProps) {
   const baseStyles = 'px-8 py-4 rounded-xl font-semibold transition-all duration-300 inline-block text-center';
   
   const variants = {
@@ -28,7 +29,7 @@ const Button = memo(function Button({ children, onClick, href, variant = 'primar
   }
 
   return (
-    <button onClick={onClick} className={styles}>
+    <button onClick={onClick} className={`${styles} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`} disabled={disabled}>
       {children}
     </button>
   );
