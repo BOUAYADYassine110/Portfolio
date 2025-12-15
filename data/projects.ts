@@ -47,7 +47,7 @@ export const projects: Project[] = [
     title: '3D Web Mapping Platform',
     description: 'Built interactive 2D/3D mapping applications for visualizing geospatial data. Implemented advanced features like terrain visualization, data overlays, and real-time updates.',
     techStack: ['React.js', 'CesiumJS', 'Three.js', 'OpenLayers', 'Web Mapping'],
-    githubUrl: 'https://github.com/BOUAYADYassine110',
+    githubUrl: 'https://github.com/BOUAYADYassine110/OLC-project',
     tags: ['Web', 'Mapping', 'Data'],
   },
 ];

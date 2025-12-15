@@ -50,6 +50,7 @@ export default function Contact() {
             name: formData.name,
             email: formData.email,
             message: formData.message,
+            subject: `New Portfolio Contact from ${formData.name}`,
           }),
         });
         
